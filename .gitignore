@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Env / secrets
+.env
+deploy/.env
+
+# Node / dashboard (추후)
+node_modules/
+dist/
+
+# Go (추후)
+/agent/bin/
+*.exe
+
+# OS
+.DS_Store
+Thumbs.db
