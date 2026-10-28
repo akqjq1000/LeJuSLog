@@ -1,0 +1,14 @@
+{
+  "server_url": "http://CHANGE_ME:8080/ingest",
+  "token": "dev-secret-token",
+  "host": "",
+  "batch_size": 500,
+  "flush_interval_sec": 2,
+  "spool_dir": "/var/lib/lejus-agent/spool",
+  "state_dir": "/var/lib/lejus-agent/state",
+  "files": [
+    { "path": "/var/log/syslog", "service": "syslog" },
+    { "path": "/var/log/auth.log", "service": "auth" }
+  ],
+  "journald": { "enabled": true, "service": "journald" }
+}

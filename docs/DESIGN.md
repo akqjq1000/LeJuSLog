@@ -11,13 +11,13 @@
 ## 1. 목표와 범위
 
 ### 목표
-- OS별(Ubuntu 24.04 / Windows 11) 로그 수집 **에이전트를 직접 구현**한다.
+- OS별(Ubuntu 26.04 / Windows 11) 로그 수집 **에이전트를 직접 구현**한다.
 - 수집된 로그를 중앙 서버(ClickHouse)에 저장한다.
 - **로컬 LLM**을 활용해 비정형 로그를 구조화·분류·요약한다.
 - GUI 대시보드와 조회 API로 로그를 탐색·분석한다.
 
 ### 범위 (토이 프로젝트 전제)
-- 대상 머신: **Ubuntu 24.04 1대 + Windows 11 Pro 1대**, 총 2대.
+- 대상 머신: **Ubuntu 26.04 1대 + Windows 11 Pro 1대**, 총 2대.
 - 처리량·고가용성·수평 확장은 목표가 아니다. 단, 로그 유실 방지(at-least-once)는
   학습 포인트로 포함한다.
 - 중앙 서버 스택은 `docker compose`로 단일 호스트에서 구동한다.
@@ -32,7 +32,7 @@
 ## 2. 전체 아키텍처
 
 ```
-[Ubuntu 24.04 Agent (Go)] ┐
+[Ubuntu 26.04 Agent (Go)] ┐
                           ├─(HTTP batch: JSON lines + gzip + token)─> [FastAPI 수집기] ─> [ClickHouse]
 [Windows 11 Agent (Go)]   ┘                                                │
                                                                            │
@@ -84,7 +84,7 @@
   }
   ```
 - 파일: `os_common.go` — 파일 tail (`nxadm/tail`).
-- Ubuntu 24.04 (`os_linux.go`):
+- Ubuntu 26.04 (`os_linux.go`):
   - `/var/log/*` 파일 tail.
   - **systemd journal** — `journalctl -o json -f` 파이프(가장 단순) 또는 네이티브
     `coreos/go-systemd`.

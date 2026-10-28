@@ -1,0 +1,31 @@
+[Unit]
+Description=LeJuSLog Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/lejus-agent --config /etc/lejus-agent/config.json
+Restart=always
+RestartSec=3
+
+# /var/lib/lejus-agent (spool/state) 자동 생성·소유
+StateDirectory=lejus-agent
+
+# 최소 권한 실행 예시:
+#   - journald 읽기: systemd-journal 그룹
+#   - /var/log/*(syslog, auth.log) 읽기: adm 그룹
+# 전용 사용자를 만들어 쓰는 것을 권장한다.
+#   sudo useradd --system --no-create-home --shell /usr/sbin/nologin lejus-agent
+User=lejus-agent
+Group=lejus-agent
+SupplementaryGroups=systemd-journal adm
+
+# 하드닝(선택)
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/lejus-agent
+
+[Install]
+WantedBy=multi-user.target
